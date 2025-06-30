@@ -8,6 +8,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-def validate_input(data):
-    """Validate input data"""
-    return data is not None
+# TODO: Add error handling
