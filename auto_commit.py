@@ -175,6 +175,36 @@ python src/main.py
         print("🚀 Making a commit...")
         self.commit_and_push()
 
+    def run_multiple(self):
+        """Make multiple commits with user-specified count"""
+        try:
+            count = int(input("How many commits do you want to make? (1-50): ").strip())
+            
+            if count < 1 or count > 50:
+                print("❌ Please enter a number between 1 and 50")
+                return
+            
+            print(f"🚀 Making {count} commits...")
+            
+            for i in range(count):
+                print(f"📝 Commit {i+1}/{count}")
+                self.commit_and_push()
+                
+                # Add small delay between commits (1-5 seconds) to look realistic
+                if i < count - 1:  # Don't delay after last commit
+                    delay = random.randint(1, 5)
+                    print(f"⏳ Waiting {delay} seconds...")
+                    time.sleep(delay)
+            
+            print(f"✅ Successfully made {count} commits!")
+            
+        except ValueError:
+            print("❌ Please enter a valid number")
+        except KeyboardInterrupt:
+            print("\n⚠️ Process interrupted by user")
+        except Exception as e:
+            print(f"❌ Error: {e}")
+
 def main():
     auto_commit = SimpleAutoCommit()
     
@@ -184,17 +214,20 @@ def main():
     print("🎯 Simple Auto-Commit for GitHub")
     print("\nChoose an option:")
     print("1. Make one commit now")
-    print("2. Schedule daily auto-commits")
-    print("3. Just setup files and exit")
+    print("2. Make multiple commits (you choose how many)")
+    print("3. Schedule daily auto-commits")
+    print("4. Just setup files and exit")
     
     try:
-        choice = input("\nEnter choice (1, 2, or 3): ").strip()
+        choice = input("\nEnter choice (1, 2, 3, or 4): ").strip()
         
         if choice == "1":
             auto_commit.run_once()
         elif choice == "2":
-            auto_commit.schedule_daily_commits()
+            auto_commit.run_multiple()
         elif choice == "3":
+            auto_commit.schedule_daily_commits()
+        elif choice == "4":
             print("✅ Files created! You can now:")
             print("   git remote add origin <your-github-repo-url>")
             print("   python auto_commit.py")
