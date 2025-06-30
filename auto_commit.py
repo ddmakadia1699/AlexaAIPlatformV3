@@ -153,22 +153,94 @@ python src/main.py
         except Exception as e:
             print(f"❌ Error: {e}")
 
-    def schedule_daily_commits(self):
-        """Schedule random daily commits"""
-        # Schedule at random times during work hours (9 AM - 6 PM)
-        for i in range(3):  # 3 commits per day
-            hour = random.randint(9, 18)
-            minute = random.randint(0, 59)
-            schedule.every().day.at(f"{hour:02d}:{minute:02d}").do(self.commit_and_push)
+    def generate_dynamic_schedule(self):
+        """Generate completely random weekly schedule"""
+        days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        dynamic_schedule = {}
         
-        print("🤖 Auto-commit scheduled!")
-        print("Will make 3 random commits daily between 9 AM - 6 PM")
-        print("Press Ctrl+C to stop")
+        for day in days:
+            # Generate random range for each day
+            # Min commits: 1-3, Max commits: 4-12
+            min_commits = random.randint(1, 3)
+            max_commits = random.randint(min_commits + 2, 12)
+            
+            dynamic_schedule[day] = {
+                'min': min_commits, 
+                'max': max_commits,
+                'actual': random.randint(min_commits, max_commits)
+            }
+        
+        return dynamic_schedule
+
+    def schedule_daily_commits(self):
+        """Schedule completely dynamic weekly commit pattern"""
+        print("🤖 Generating dynamic weekly schedule...")
+        
+        # Generate random schedule for this week
+        weekly_schedule = self.generate_dynamic_schedule()
+        
+        print("🎲 This week's random schedule:")
+        
+        for day, schedule_info in weekly_schedule.items():
+            commits_today = schedule_info['actual']
+            min_range = schedule_info['min']
+            max_range = schedule_info['max']
+            
+            # Schedule commits at random times between 9 AM - 6 PM
+            for i in range(commits_today):
+                hour = random.randint(9, 18)
+                minute = random.randint(0, 59)
+                time_str = f"{hour:02d}:{minute:02d}"
+                
+                # Schedule for this specific day
+                getattr(schedule.every(), day).at(time_str).do(self.commit_and_push)
+            
+            print(f"📅 {day.capitalize()}: {commits_today} commits (range was {min_range}-{max_range})")
+        
+        print("\n🎯 Totally Dynamic Schedule!")
+        print("✨ Every week gets completely new random ranges")
+        print("📊 Each day: 1-12 possible commits")
+        print("🕘 All commits between 9 AM - 6 PM")
+        print("🔄 Refreshes every Sunday with new random ranges")
+        print("\nPress Ctrl+C to stop")
+        
+        # Schedule weekly refresh to change commit counts
+        schedule.every().sunday.at("23:59").do(self.refresh_weekly_schedule)
         
         # Keep running
         while True:
             schedule.run_pending()
             time.sleep(60)  # Check every minute
+
+    def refresh_weekly_schedule(self):
+        """Refresh the weekly schedule with completely new random ranges"""
+        print("🔄 Generating brand new dynamic schedule...")
+        
+        # Clear all existing schedules and rebuild
+        schedule.clear()
+        
+        # Re-add the weekly refresh job
+        schedule.every().sunday.at("23:59").do(self.refresh_weekly_schedule)
+        
+        # Generate completely new random schedule
+        weekly_schedule = self.generate_dynamic_schedule()
+        
+        print("🎲 New week's completely random schedule:")
+        
+        for day, schedule_info in weekly_schedule.items():
+            commits_today = schedule_info['actual']
+            min_range = schedule_info['min']
+            max_range = schedule_info['max']
+            
+            for i in range(commits_today):
+                hour = random.randint(9, 18)
+                minute = random.randint(0, 59)
+                time_str = f"{hour:02d}:{minute:02d}"
+                getattr(schedule.every(), day).at(time_str).do(self.commit_and_push)
+            
+            print(f"📅 {day.capitalize()}: {commits_today} commits (new range: {min_range}-{max_range})")
+        
+        print("✅ Totally new dynamic schedule generated!")
 
     def run_once(self):
         """Make one commit right now"""
@@ -215,7 +287,7 @@ def main():
     print("\nChoose an option:")
     print("1. Make one commit now")
     print("2. Make multiple commits (you choose how many)")
-    print("3. Schedule daily auto-commits")
+    print("3. Schedule totally dynamic weekly auto-commits")
     print("4. Just setup files and exit")
     
     try:
