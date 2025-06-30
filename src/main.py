@@ -8,4 +8,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-# NOTE: Consider refactoring
+def validate_input(data):
+    """Validate input data"""
+    return data is not None
