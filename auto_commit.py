@@ -154,20 +154,40 @@ python src/main.py
             print(f"❌ Error: {e}")
 
     def generate_dynamic_schedule(self):
-        """Generate completely random weekly schedule"""
+        """Generate completely realistic random weekly schedule with no duplicates"""
         days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         dynamic_schedule = {}
+        used_commit_counts = set()
         
         for day in days:
-            # Generate random range for each day
-            # Min commits: 1-3, Max commits: 4-12
-            min_commits = random.randint(1, 3)
-            max_commits = random.randint(min_commits + 2, 12)
+            # Generate realistic ranges based on typical developer patterns
+            # Weekdays: slightly more active, Weekends: more varied
+            if day in ['saturday', 'sunday']:
+                min_commits = random.randint(1, 2)  # Weekend: lighter activity
+                max_commits = random.randint(min_commits + 2, 8)
+            elif day in ['monday', 'wednesday']:
+                min_commits = random.randint(1, 3)  # Start/mid week
+                max_commits = random.randint(min_commits + 2, 9)
+            else:  # tuesday, thursday, friday
+                min_commits = random.randint(2, 4)  # Peak productivity days
+                max_commits = random.randint(min_commits + 2, 12)
+            
+            # Ensure no duplicate commit counts in the same week
+            attempts = 0
+            while attempts < 20:  # Prevent infinite loop
+                actual_commits = random.randint(min_commits, max_commits)
+                if actual_commits not in used_commit_counts:
+                    used_commit_counts.add(actual_commits)
+                    break
+                attempts += 1
+            else:
+                # If we can't find unique number, just use the generated one
+                actual_commits = random.randint(min_commits, max_commits)
             
             dynamic_schedule[day] = {
                 'min': min_commits, 
                 'max': max_commits,
-                'actual': random.randint(min_commits, max_commits)
+                'actual': actual_commits
             }
         
         return dynamic_schedule
@@ -186,11 +206,31 @@ python src/main.py
             min_range = schedule_info['min']
             max_range = schedule_info['max']
             
-            # Schedule commits at random times between 9 AM - 6 PM
+            # Schedule commits at realistic times (more activity during peak hours)
+            scheduled_times = set()
             for i in range(commits_today):
-                hour = random.randint(9, 18)
-                minute = random.randint(0, 59)
-                time_str = f"{hour:02d}:{minute:02d}"
+                # Realistic developer hours with peak times
+                hour_weights = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+                hour_probabilities = [0.08, 0.12, 0.15, 0.10, 0.08, 0.15, 0.12, 0.10, 0.08, 0.02]
+                
+                # Ensure unique times for each commit
+                attempts = 0
+                while attempts < 30:
+                    hour = random.choices(hour_weights, weights=hour_probabilities)[0]
+                    minute = random.choice([0, 15, 30, 45]) + random.randint(0, 14)  # More realistic minutes
+                    if minute >= 60:
+                        minute = 59
+                    
+                    time_str = f"{hour:02d}:{minute:02d}"
+                    if time_str not in scheduled_times:
+                        scheduled_times.add(time_str)
+                        break
+                    attempts += 1
+                else:
+                    # Fallback if we can't find unique time
+                    hour = random.randint(9, 18)
+                    minute = random.randint(0, 59)
+                    time_str = f"{hour:02d}:{minute:02d}"
                 
                 # Schedule for this specific day
                 getattr(schedule.every(), day).at(time_str).do(self.commit_and_push)
@@ -232,10 +272,30 @@ python src/main.py
             min_range = schedule_info['min']
             max_range = schedule_info['max']
             
+            scheduled_times = set()
             for i in range(commits_today):
-                hour = random.randint(9, 18)
-                minute = random.randint(0, 59)
-                time_str = f"{hour:02d}:{minute:02d}"
+                # Realistic developer hours with peak times
+                hour_weights = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+                hour_probabilities = [0.08, 0.12, 0.15, 0.10, 0.08, 0.15, 0.12, 0.10, 0.08, 0.02]
+                
+                # Ensure unique times for each commit
+                attempts = 0
+                while attempts < 30:
+                    hour = random.choices(hour_weights, weights=hour_probabilities)[0]
+                    minute = random.choice([0, 15, 30, 45]) + random.randint(0, 14)
+                    if minute >= 60:
+                        minute = 59
+                    
+                    time_str = f"{hour:02d}:{minute:02d}"
+                    if time_str not in scheduled_times:
+                        scheduled_times.add(time_str)
+                        break
+                    attempts += 1
+                else:
+                    hour = random.randint(9, 18)
+                    minute = random.randint(0, 59)
+                    time_str = f"{hour:02d}:{minute:02d}"
+                
                 getattr(schedule.every(), day).at(time_str).do(self.commit_and_push)
             
             print(f"📅 {day.capitalize()}: {commits_today} commits (new range: {min_range}-{max_range})")
