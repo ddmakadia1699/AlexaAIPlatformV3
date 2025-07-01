@@ -8,6 +8,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-def get_version():
-    """Return version number"""
-    return "1.0.0"
+# NOTE: Consider refactoring
