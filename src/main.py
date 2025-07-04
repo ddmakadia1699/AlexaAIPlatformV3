@@ -17,3 +17,5 @@ def get_version():
     return "1.0.0"
 
 # Added validation logic
+
+# NOTE: Consider refactoring
