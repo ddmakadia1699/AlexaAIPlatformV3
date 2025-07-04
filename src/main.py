@@ -7,23 +7,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# NOTE: Consider refactoring
-
-# Enhanced for better performance
-
-def get_version():
-    """Return version number"""
-    return "1.0.0"
-
-# Added validation logic
-
-# NOTE: Consider refactoring
-
-# Added validation logic
-
-def format_output(result):
-    """Format output data"""
-    return str(result)
-
-# TODO: Add error handling
