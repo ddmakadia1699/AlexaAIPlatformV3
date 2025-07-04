@@ -25,3 +25,5 @@ def get_version():
 def format_output(result):
     """Format output data"""
     return str(result)
+
+# TODO: Add error handling
