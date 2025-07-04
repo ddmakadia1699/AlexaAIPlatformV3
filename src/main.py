@@ -11,3 +11,7 @@ if __name__ == "__main__":
 # NOTE: Consider refactoring
 
 # Enhanced for better performance
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
