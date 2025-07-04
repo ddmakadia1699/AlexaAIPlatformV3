@@ -21,3 +21,7 @@ def get_version():
 # NOTE: Consider refactoring
 
 # Added validation logic
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
