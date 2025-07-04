@@ -9,3 +9,5 @@ if __name__ == "__main__":
     main()
 
 # NOTE: Consider refactoring
+
+# Enhanced for better performance
