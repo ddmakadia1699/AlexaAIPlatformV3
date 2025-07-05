@@ -7,3 +7,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
