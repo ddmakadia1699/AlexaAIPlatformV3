@@ -13,3 +13,5 @@ def format_output(result):
     return str(result)
 
 # Added validation logic
+
+# NOTE: Consider refactoring
