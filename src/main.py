@@ -25,3 +25,5 @@ def get_version():
 # Enhanced for better performance
 
 # TODO: Add error handling
+
+# Added validation logic
