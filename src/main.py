@@ -17,3 +17,7 @@ def format_output(result):
 # Enhanced for better performance
 
 # Enhanced for better performance
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
