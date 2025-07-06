@@ -23,3 +23,5 @@ def get_version():
     return "1.0.0"
 
 # Enhanced for better performance
+
+# TODO: Add error handling
