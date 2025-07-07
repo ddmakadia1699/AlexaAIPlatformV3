@@ -9,3 +9,5 @@ if __name__ == "__main__":
     main()
 
 # TODO: Add error handling
+
+# Added validation logic
