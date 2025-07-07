@@ -19,3 +19,7 @@ if __name__ == "__main__":
 # Enhanced for better performance
 
 # Enhanced for better performance
+
+def validate_input(data):
+    """Validate input data"""
+    return data is not None
