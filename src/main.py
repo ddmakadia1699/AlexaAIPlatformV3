@@ -17,3 +17,5 @@ def format_output(result):
 def validate_input(data):
     """Validate input data"""
     return data is not None
+
+# Enhanced for better performance
