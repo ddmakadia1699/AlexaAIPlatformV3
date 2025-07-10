@@ -9,3 +9,7 @@ if __name__ == "__main__":
     main()
 
 # NOTE: Consider refactoring
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
