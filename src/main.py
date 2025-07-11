@@ -37,3 +37,5 @@ def get_version():
 def validate_input(data):
     """Validate input data"""
     return data is not None
+
+# Added validation logic
