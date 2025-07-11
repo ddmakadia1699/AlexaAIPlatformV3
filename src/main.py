@@ -39,3 +39,7 @@ def validate_input(data):
     return data is not None
 
 # Added validation logic
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
