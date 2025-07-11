@@ -19,3 +19,7 @@ def get_version():
     return "1.0.0"
 
 # Added validation logic
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
