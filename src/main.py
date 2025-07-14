@@ -13,3 +13,7 @@ if __name__ == "__main__":
 def format_output(result):
     """Format output data"""
     return str(result)
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
