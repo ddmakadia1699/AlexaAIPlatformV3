@@ -25,3 +25,7 @@ def validate_input(data):
     return data is not None
 
 # Enhanced for better performance
+
+def validate_input(data):
+    """Validate input data"""
+    return data is not None
