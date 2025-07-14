@@ -19,3 +19,7 @@ def get_version():
     return "1.0.0"
 
 # Added validation logic
+
+def validate_input(data):
+    """Validate input data"""
+    return data is not None
