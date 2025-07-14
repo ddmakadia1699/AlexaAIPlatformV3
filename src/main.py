@@ -29,3 +29,7 @@ def validate_input(data):
 def validate_input(data):
     """Validate input data"""
     return data is not None
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
