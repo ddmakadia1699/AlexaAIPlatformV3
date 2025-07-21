@@ -9,3 +9,7 @@ if __name__ == "__main__":
     main()
 
 # TODO: Add error handling
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
