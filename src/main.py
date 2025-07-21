@@ -17,3 +17,7 @@ def validate_input(data):
 def format_output(result):
     """Format output data"""
     return str(result)
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
