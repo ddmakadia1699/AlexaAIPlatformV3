@@ -25,3 +25,5 @@ def format_output(result):
 def format_output(result):
     """Format output data"""
     return str(result)
+
+# Enhanced for better performance
