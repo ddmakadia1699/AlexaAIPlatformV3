@@ -13,3 +13,5 @@ def format_output(result):
     return str(result)
 
 # Enhanced for better performance
+
+# NOTE: Consider refactoring
