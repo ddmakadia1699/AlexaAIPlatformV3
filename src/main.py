@@ -19,3 +19,7 @@ def format_output(result):
 def format_output(result):
     """Format output data"""
     return str(result)
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
