@@ -15,3 +15,7 @@ def format_output(result):
 # Enhanced for better performance
 
 # NOTE: Consider refactoring
+
+def format_output(result):
+    """Format output data"""
+    return str(result)
