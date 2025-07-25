@@ -27,3 +27,5 @@ def get_version():
 def get_version():
     """Return version number"""
     return "1.0.0"
+
+# TODO: Add error handling
