@@ -13,3 +13,7 @@ def format_output(result):
     return str(result)
 
 # NOTE: Consider refactoring
+
+def validate_input(data):
+    """Validate input data"""
+    return data is not None
