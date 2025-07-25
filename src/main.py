@@ -23,3 +23,7 @@ def get_version():
     return "1.0.0"
 
 # Enhanced for better performance
+
+def get_version():
+    """Return version number"""
+    return "1.0.0"
