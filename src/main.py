@@ -29,3 +29,5 @@ def get_version():
     return "1.0.0"
 
 # TODO: Add error handling
+
+# NOTE: Consider refactoring
